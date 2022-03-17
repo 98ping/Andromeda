@@ -7,6 +7,7 @@ import ltd.matrixstudios.andromeda.chest.ChestLoader
 import ltd.matrixstudios.andromeda.chest.command.SetChestInventoryCommand
 import ltd.matrixstudios.andromeda.commands.WhoAmICommand
 import ltd.matrixstudios.andromeda.listener.PlayerJoinListener
+import ltd.matrixstudios.andromeda.redis.GameInfoPubSub
 import ltd.matrixstudios.andromeda.scoreboard.GameScoreboard
 import org.bukkit.Bukkit
 import org.bukkit.event.player.PlayerJoinEvent
@@ -35,6 +36,8 @@ class AndromedaSGGame : JavaPlugin() {
         }
 
         ChestLoader.load()
+
+        Andromeda.INSTANCE.andromedaRedis.resource.subscribe(GameInfoPubSub(), "Andromeda::packets::secondaryPacketChannel")
 
     }
 }

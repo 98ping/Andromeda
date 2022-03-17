@@ -2,6 +2,7 @@ package ltd.matrixstudios.andromeda.game
 
 import ltd.matrixstudios.andromeda.Andromeda
 import ltd.matrixstudios.andromeda.AndromedaPlugin
+import ltd.matrixstudios.andromeda.backend.databases.packets.RedisPacketDistributor
 import ltd.matrixstudios.andromeda.game.state.GameState
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
@@ -19,6 +20,8 @@ class GameCountdown {
                 when (totalGameSeconds) {
                     60 -> {
                         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&eGame is starting in &c1 minute"))
+
+                        RedisPacketDistributor.sendGeneralMessage("LOAD_CHESTS")
                     }
 
                     45 -> {

@@ -12,7 +12,6 @@ import ltd.matrixstudios.andromeda.game.team.TeamSizeType
 import ltd.matrixstudios.andromeda.modes.Gamemode
 import org.bukkit.Bukkit
 import org.bukkit.Material
-import org.bukkit.plugin.Plugin
 import org.bukkit.plugin.java.JavaPlugin
 import java.util.*
 
@@ -37,7 +36,7 @@ class AndromedaPlugin : JavaPlugin() {
         saveDefaultConfig()
         instance = this
 
-        Andromeda.INSTANCE.load("mongodb://localhost:27017", "Andromeda", "127.0.0.1", this)
+            Andromeda.INSTANCE.load("mongodb://localhost:27017", "Andromeda", "127.0.0.1", this)
 
         gameService = GameService()
 

@@ -1,5 +1,6 @@
 package ltd.matrixstudios.andromeda.backend.databases
 
+import ltd.matrixstudios.andromeda.backend.databases.packets.RedisPacketDistributor
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig
 import redis.clients.jedis.Jedis
 import redis.clients.jedis.JedisPool
@@ -13,6 +14,8 @@ class AndromedaRedis {
         pool = JedisPool(GenericObjectPoolConfig(), host, 6379)
 
         resource = pool.resource
+
+        RedisPacketDistributor.loadPubSub()
     }
 
     fun executeRedisCommand(unit: (Jedis) -> Unit = {}) {
