@@ -1,0 +1,6 @@
+
+dependencies {
+   implementation project(":shared")
+   implementation project(":game")
+   implementation fileTree(include: ['*.jar'], dir: 'libs')
+}

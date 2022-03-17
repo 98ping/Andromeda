@@ -1,0 +1,6 @@
+name: Andromeda-SG
+version: 1.1/stable
+main: ltd.matrixstudios.andromeda.AndromedaSGGame
+author: MatrixStudios
+depend:
+  - Andromeda-Frame

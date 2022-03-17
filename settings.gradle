@@ -1,0 +1,5 @@
+rootProject.name = 'Andromeda-gradle'
+include 'shared'
+include 'game'
+include 'lobby'
+include 'examplegame'

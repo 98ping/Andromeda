@@ -1,0 +1,6 @@
+name: Andromeda-Lobby
+main: ltd.matrixstudios.andromeda.AndromedaLobby
+version: 1.1/stable
+author: Matrix Studios
+depend:
+  - Andromeda-Frame
