@@ -7,12 +7,12 @@ import java.util.concurrent.ForkJoinPool
 object RedisPacketDistributor {
 
     fun loadPubSub() {
-        Andromeda.INSTANCE.andromedaRedis.resource.subscribe(PacketPublishSubscribe(), "Andromeda::packets::mainPacketChannel")
+        //Andromeda.INSTANCE.andromedaRedis.resource.subscribe(PacketPublishSubscribe(), "Andromeda::packets::mainPacketChannel")
     }
 
     fun sendGeneralMessage(message: String) {
         ForkJoinPool.commonPool().execute {
-            Andromeda.INSTANCE.andromedaRedis.resource.publish("Andromeda::packets::secondaryPacketChannel", message)
+            Andromeda.INSTANCE.andromedaRedis.packetPool.resource.publish("Andromeda::packets::secondaryPacketChannel", message)
         }
     }
 

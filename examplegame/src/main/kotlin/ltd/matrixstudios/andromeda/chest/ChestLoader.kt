@@ -4,12 +4,15 @@ import com.google.gson.reflect.TypeToken
 import ltd.matrixstudios.andromeda.Andromeda
 import ltd.matrixstudios.andromeda.AndromedaPlugin
 import ltd.matrixstudios.andromeda.backend.serialization.SerializationManager
+import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.block.Block
 import org.bukkit.block.Chest
 import org.bukkit.inventory.Inventory
 import org.bukkit.inventory.ItemStack
 import java.lang.reflect.Type
 import java.util.*
+import java.util.concurrent.ForkJoinPool
 import kotlin.random.Random
 
 object ChestLoader {
@@ -34,41 +37,53 @@ object ChestLoader {
     }
 
 
-    fun loadChests() {
+    fun getBlocksThatAreChests() : MutableList<Chest> {
         val localGame = AndromedaPlugin.instance.gameInstance
 
         val gameArena = localGame.activeArena
 
         if (gameArena == null) {
             println("Game arena was not found while loading chests.")
-            return
+            return arrayListOf()
         }
 
         val arenaCuboid = gameArena.constructCuboid()
 
-        val chestsOnly = arenaCuboid.blocks.filter { it.type == Material.CHEST }.toCollection(arrayListOf())
+        val chestsOnly: MutableList<Chest> = arrayListOf()
 
-        chestsOnly.forEach { block ->
+        arenaCuboid.world.loadedChunks.forEach { chunk ->
+            chunk.tileEntities.filterIsInstance<Chest>().forEach {
+                chestsOnly.add(it)
+            }
+        }
 
-            if (block.state is Chest) { //stupid check but for some reason it doesnt work w/out it
-                val chestData = block.state as Chest
-
-                chestData.blockInventory.clear()
-
-                val chestInventory = chestinventory.filter { Objects.nonNull(it) }
-
-                val RandomItems = listOf(
-                    chestInventory[Random.nextInt(chestInventory.size)],
-                    chestInventory[Random.nextInt(chestInventory.size)],
-                    chestInventory[Random.nextInt(chestInventory.size)]
-                )
+        return chestsOnly
+    }
 
 
-                RandomItems.forEach { chestData.blockInventory.setItem(Random.nextInt(chestInventory.size), it) }
+    fun loadChests() {
+        Bukkit.getScheduler().runTask(AndromedaPlugin.instance) {
+            val chestsOnly = getBlocksThatAreChests()
 
-                chestData.update()
-                
+            chestsOnly.forEach { block ->
+                    val chestData = block
+
+                    chestData.blockInventory.clear()
+
+                    val chestInventory = chestinventory.filter { Objects.nonNull(it) }
+
+                    val RandomItems = listOf(
+                        chestInventory[Random.nextInt(chestInventory.size)],
+                        chestInventory[Random.nextInt(chestInventory.size)],
+                        chestInventory[Random.nextInt(chestInventory.size)]
+                    )
+
+
+                    RandomItems.forEach { chestData.blockInventory.setItem(Random.nextInt(chestInventory.size), it) }
+
+                    chestData.update()
+
+                }
             }
         }
     }
-}

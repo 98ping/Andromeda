@@ -14,11 +14,4 @@ data class Gamemode(
     val maxTeams: Int,
     val teamSize: Int,
     val factorTeams: Boolean,
-
-
-
-
-
-
-) {
-}
+)

@@ -30,8 +30,6 @@ class GameService {
     fun startGame(game: Game) {
         game.gameState = GameState.STARTED
 
-        game.activeArena = Andromeda.INSTANCE.gameArenaService.findFirstAvailableArena(game.gamemode)
-
         game.allParticipants = Bukkit.getOnlinePlayers().map { it.uniqueId }.toCollection(arrayListOf())
 
         game.aliveParticipants = game.allParticipants

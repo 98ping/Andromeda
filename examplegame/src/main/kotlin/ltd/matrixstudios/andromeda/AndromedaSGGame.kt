@@ -12,6 +12,7 @@ import ltd.matrixstudios.andromeda.scoreboard.GameScoreboard
 import org.bukkit.Bukkit
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.plugin.java.JavaPlugin
+import kotlin.concurrent.thread
 
 class AndromedaSGGame : JavaPlugin() {
 
@@ -37,7 +38,9 @@ class AndromedaSGGame : JavaPlugin() {
 
         ChestLoader.load()
 
-        Andromeda.INSTANCE.andromedaRedis.resource.subscribe(GameInfoPubSub(), "Andromeda::packets::secondaryPacketChannel")
+        thread {
+            Andromeda.INSTANCE.andromedaRedis.packetPool.resource.subscribe(GameInfoPubSub(), "Andromeda::packets::secondaryPacketChannel")
+        }
 
     }
 }

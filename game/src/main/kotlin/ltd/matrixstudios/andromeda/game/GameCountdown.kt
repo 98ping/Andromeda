@@ -17,8 +17,11 @@ class GameCountdown {
 
         object : BukkitRunnable() {
             override fun run() {
+
                 when (totalGameSeconds) {
                     60 -> {
+                        game.activeArena = Andromeda.INSTANCE.gameArenaService.findFirstAvailableArena(game.gamemode)
+
                         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&eGame is starting in &c1 minute"))
 
                         RedisPacketDistributor.sendGeneralMessage("LOAD_CHESTS")
