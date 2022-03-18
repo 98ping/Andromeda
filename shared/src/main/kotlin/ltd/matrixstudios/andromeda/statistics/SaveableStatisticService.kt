@@ -7,14 +7,10 @@ import java.util.*
 
 class SaveableStatisticService {
 
-    val statistics = hashMapOf<UUID, SaveableStatistic>()
+    val statistics = hashMapOf<UUID, GlobalSaveableStatistic>()
 
-    /**
-     * Saves a stat to redis
-     * @param player
-     * @param saveable
-     */
-    fun saveStatistic(player: Player, saveable: SaveableStatistic) {
+
+    fun saveStatistic(player: Player, saveable: GlobalSaveableStatistic) {
         Andromeda.INSTANCE.andromedaRedis.executeRedisCommand {
             it.hset("Andromeda::stats::", player.uniqueId.toString(), SerializationManager.GSON.toJson(saveable))
         }
@@ -25,15 +21,11 @@ class SaveableStatisticService {
     fun loadStatistics() {
         val stats = Andromeda.INSTANCE.andromedaRedis.resource.hgetAll("Andromeda::stats::")
 
-        stats.entries.forEach { statistics[UUID.fromString(it.key)] = SerializationManager.GSON.fromJson(it.value, SaveableStatistic::class.java) }
+        stats.entries.forEach { statistics[UUID.fromString(it.key)] = SerializationManager.GSON.fromJson(it.value, GlobalSaveableStatistic::class.java) }
     }
 
-    /**
-     * Finds statistic or creates a new one
-     * @param player
-     */
-    fun getStatistic(player: Player) : SaveableStatistic {
-        return statistics.getOrDefault(player.uniqueId, SaveableStatistic(0, 0,0, 0))
+    fun getStatistic(player: Player) : GlobalSaveableStatistic {
+        return statistics.getOrDefault(player.uniqueId, GlobalSaveableStatistic(0, 0,0, 0))
     }
 
 

@@ -6,6 +6,7 @@ import io.github.thatkawaiisam.assemble.AssembleStyle
 import ltd.matrixstudios.andromeda.chest.ChestLoader
 import ltd.matrixstudios.andromeda.chest.command.SetChestInventoryCommand
 import ltd.matrixstudios.andromeda.commands.WhoAmICommand
+import ltd.matrixstudios.andromeda.listener.GameEventsListener
 import ltd.matrixstudios.andromeda.listener.PlayerJoinListener
 import ltd.matrixstudios.andromeda.redis.GameInfoPubSub
 import ltd.matrixstudios.andromeda.scoreboard.GameScoreboard
@@ -30,6 +31,7 @@ class AndromedaSGGame : JavaPlugin() {
         adapter.assembleStyle = AssembleStyle.MODERN
 
         server.pluginManager.registerEvents(PlayerJoinListener(), this)
+        server.pluginManager.registerEvents(GameEventsListener(), this)
 
         commandHandler = BukkitCommandManager(this).apply {
             registerCommand(WhoAmICommand())
@@ -39,7 +41,7 @@ class AndromedaSGGame : JavaPlugin() {
         ChestLoader.load()
 
         thread {
-            Andromeda.INSTANCE.andromedaRedis.packetPool.resource.subscribe(GameInfoPubSub(), "Andromeda::packets::secondaryPacketChannel")
+            Andromeda.INSTANCE.andromedaRedis.secondaryPacketPool.resource.subscribe(GameInfoPubSub(), "Andromeda::packets::secondaryPacketChannel")
         }
 
     }

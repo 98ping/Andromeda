@@ -1,6 +1,7 @@
 package ltd.matrixstudios.andromeda.game
 
 import ltd.matrixstudios.andromeda.Andromeda
+import ltd.matrixstudios.andromeda.AndromedaPlugin
 import ltd.matrixstudios.andromeda.arena.GameArena
 import ltd.matrixstudios.andromeda.game.state.GameState
 import ltd.matrixstudios.andromeda.game.team.TeamSizeType
@@ -10,6 +11,7 @@ import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Location
 import org.bukkit.entity.Player
+import org.bukkit.metadata.FixedMetadataValue
 import java.util.*
 
 data class Game(
@@ -90,13 +92,18 @@ data class Game(
 
     }
 
-    fun transportParticipantsToArena() {
+    //gonna restrict movement @ some point idk its hard mane
+    fun transportParticipantsToArena(restrictMovement: Boolean) {
         val playerList = allParticipants
 
         if (teamSizeType == TeamSizeType.SOLO) {
             setupSoloTeams()
             for (player in playerList) {
                 teleportToRandomArenaSpawn(Bukkit.getPlayer(player))
+
+                if (restrictMovement) {
+                    Bukkit.getPlayer(player).setMetadata("restrictedMovement", FixedMetadataValue(AndromedaPlugin.instance, true))
+                }
             }
         } else {
             for (team in Andromeda.INSTANCE.gameTeamService.teams.values) {
@@ -115,9 +122,7 @@ data class Game(
             Andromeda.INSTANCE.gameTeamService.sendTeamsToRedis()
         }
 
-        println(allParticipants.toString())
-        println(teamSizeType.name)
-        println(aliveParticipants.toString())
+
 
     }
 }

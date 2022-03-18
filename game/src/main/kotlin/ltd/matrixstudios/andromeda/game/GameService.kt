@@ -36,14 +36,7 @@ class GameService {
 
         AndromedaPlugin.instance.gameInstance = game
 
-        game.transportParticipantsToArena()
-
-
-
-
-
-
-
+        game.transportParticipantsToArena(false)
 
     }
 }

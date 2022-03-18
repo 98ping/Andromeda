@@ -12,7 +12,7 @@ object RedisPacketDistributor {
 
     fun sendGeneralMessage(message: String) {
         ForkJoinPool.commonPool().execute {
-            Andromeda.INSTANCE.andromedaRedis.packetPool.resource.publish("Andromeda::packets::secondaryPacketChannel", message)
+            Andromeda.INSTANCE.andromedaRedis.secondaryPacketPool.resource.publish("Andromeda::packets::secondaryPacketChannel", message)
         }
     }
 

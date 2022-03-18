@@ -2,7 +2,7 @@ package ltd.matrixstudios.andromeda.chest;
 
 import java.lang.System;
 
-@kotlin.Metadata(mv = {1, 6, 0}, k = 1, d1 = {"\u00008\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0011\n\u0002\u0018\u0002\n\u0002\b\u0006\n\u0002\u0010!\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002J\u000e\u0010\u000f\u001a\n\u0012\u0004\u0012\u00020\u0011\u0018\u00010\u0010J\u0006\u0010\u0012\u001a\u00020\u0013J\u0006\u0010\u0014\u001a\u00020\u0013J\u000e\u0010\u0015\u001a\u00020\u00132\u0006\u0010\u0016\u001a\u00020\u0017R\u0011\u0010\u0003\u001a\u00020\u0004\u00a2\u0006\b\n\u0000\u001a\u0004\b\u0005\u0010\u0006R$\u0010\u0007\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\t0\bX\u0086.\u00a2\u0006\u0010\n\u0002\u0010\u000e\u001a\u0004\b\n\u0010\u000b\"\u0004\b\f\u0010\r\u00a8\u0006\u0018"}, d2 = {"Lltd/matrixstudios/andromeda/chest/ChestLoader;", "", "()V", "TYPE", "Ljava/lang/reflect/Type;", "getTYPE", "()Ljava/lang/reflect/Type;", "chestinventory", "", "Lorg/bukkit/inventory/ItemStack;", "getChestinventory", "()[Lorg/bukkit/inventory/ItemStack;", "setChestinventory", "([Lorg/bukkit/inventory/ItemStack;)V", "[Lorg/bukkit/inventory/ItemStack;", "getBlocksThatAreChests", "", "Lorg/bukkit/block/Chest;", "load", "", "loadChests", "saveChestInventoryToRedis", "inventory", "Lorg/bukkit/inventory/Inventory;", "examplegame"})
+@kotlin.Metadata(mv = {1, 6, 0}, k = 1, d1 = {"\u00008\n\u0002\u0018\u0002\n\u0002\u0010\u0000\n\u0002\b\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\n\u0002\u0010\u0011\n\u0002\u0018\u0002\n\u0002\b\u0006\n\u0002\u0010!\n\u0002\u0018\u0002\n\u0000\n\u0002\u0010\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\b\u00c6\u0002\u0018\u00002\u00020\u0001B\u0007\b\u0002\u00a2\u0006\u0002\u0010\u0002J\f\u0010\u000f\u001a\b\u0012\u0004\u0012\u00020\u00110\u0010J\u0006\u0010\u0012\u001a\u00020\u0013J\u0006\u0010\u0014\u001a\u00020\u0013J\u000e\u0010\u0015\u001a\u00020\u00132\u0006\u0010\u0016\u001a\u00020\u0017R\u0011\u0010\u0003\u001a\u00020\u0004\u00a2\u0006\b\n\u0000\u001a\u0004\b\u0005\u0010\u0006R$\u0010\u0007\u001a\n\u0012\u0006\u0012\u0004\u0018\u00010\t0\bX\u0086.\u00a2\u0006\u0010\n\u0002\u0010\u000e\u001a\u0004\b\n\u0010\u000b\"\u0004\b\f\u0010\r\u00a8\u0006\u0018"}, d2 = {"Lltd/matrixstudios/andromeda/chest/ChestLoader;", "", "()V", "TYPE", "Ljava/lang/reflect/Type;", "getTYPE", "()Ljava/lang/reflect/Type;", "chestinventory", "", "Lorg/bukkit/inventory/ItemStack;", "getChestinventory", "()[Lorg/bukkit/inventory/ItemStack;", "setChestinventory", "([Lorg/bukkit/inventory/ItemStack;)V", "[Lorg/bukkit/inventory/ItemStack;", "getBlocksThatAreChests", "", "Lorg/bukkit/block/Chest;", "load", "", "loadChests", "saveChestInventoryToRedis", "inventory", "Lorg/bukkit/inventory/Inventory;", "examplegame"})
 public final class ChestLoader {
     @org.jetbrains.annotations.NotNull()
     public static final ltd.matrixstudios.andromeda.chest.ChestLoader INSTANCE = null;
@@ -35,7 +35,7 @@ public final class ChestLoader {
     org.bukkit.inventory.Inventory inventory) {
     }
     
-    @org.jetbrains.annotations.Nullable()
+    @org.jetbrains.annotations.NotNull()
     public final java.util.List<org.bukkit.block.Chest> getBlocksThatAreChests() {
         return null;
     }

@@ -25,6 +25,9 @@ class GameCountdown {
                         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&eGame is starting in &c1 minute"))
 
                         RedisPacketDistributor.sendGeneralMessage("LOAD_CHESTS")
+
+                        RedisPacketDistributor.sendGeneralMessage("SETUP_STATS")
+
                     }
 
                     45 -> {

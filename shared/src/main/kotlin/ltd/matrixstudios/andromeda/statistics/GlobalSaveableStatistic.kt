@@ -1,6 +1,6 @@
 package ltd.matrixstudios.andromeda.statistics
 
-data class SaveableStatistic(
+data class GlobalSaveableStatistic(
     val kills: Int,
     val deaths: Int,
     val gamesPlayed: Int,

@@ -3,6 +3,8 @@ package ltd.matrixstudios.andromeda.scoreboard
 import io.github.thatkawaiisam.assemble.AssembleAdapter
 import ltd.matrixstudios.andromeda.Andromeda
 import ltd.matrixstudios.andromeda.AndromedaPlugin
+import ltd.matrixstudios.andromeda.game.TemporaryGeneratedStatistic
+import ltd.matrixstudios.andromeda.game.TemporaryStatisticService
 import ltd.matrixstudios.andromeda.game.state.GameState
 import org.bukkit.Bukkit
 import org.bukkit.ChatColor
@@ -35,10 +37,21 @@ class GameScoreboard() : AssembleAdapter {
         }
 
         if (gameInstance.gameState == GameState.STARTED) {
-            lines.add("&fPeople Remaining: &6" + gameInstance.aliveParticipants.size)
-            lines.add("&fTeams Remaining: &6" + Andromeda.INSTANCE.gameTeamService.teams.values.filter { it.membersAlive.size != 0 }.count())
+            lines.add("&6&lPlayer")
+            lines.add("&eName: &f" + p0!!.name)
+            lines.add("&eKills: &f" + TemporaryStatisticService.statistics.getOrDefault(p0.uniqueId, TemporaryGeneratedStatistic(0, 0)).kills)
+            lines.add("&eChests: &f" + TemporaryStatisticService.statistics.getOrDefault(p0.uniqueId, TemporaryGeneratedStatistic(0, 0)).chestsLooted)
             lines.add(" ")
-            lines.add("&fPlaying on: &6" + gameInstance.activeArena!!.id)
+            lines.add("&5&lGame")
+            lines.add("&eMap: &f" + gameInstance.activeArena!!.id)
+            lines.add("&eTributes: &f" + Andromeda.INSTANCE.gameTeamService.teams.values.filter { it.membersAlive.size >= 1 }.count() + " Alive")
+            lines.add(" ")
+            lines.add("&a&lLocation")
+            lines.add("&ePlaying On: &f" + gameInstance.uniqueId)
+            val playerTeam = Andromeda.INSTANCE.gameTeamService.teams.values.find { it.teamMembers.contains(p0.uniqueId) }
+            if (playerTeam != null) {
+                lines.add("&eTeam Id: &f" + playerTeam.abbreviatedId)
+            }
         }
 
         lines.add("&7&m----------------")

@@ -10,7 +10,7 @@ class AndromedaRedis {
     lateinit var pool: JedisPool
     lateinit var resource: Jedis
 
-    lateinit var packetPool: JedisPool
+    lateinit var secondaryPacketPool: JedisPool //TODO: Make a main packet pool
 
     fun loadRedis(host: String) {
         pool = JedisPool(GenericObjectPoolConfig(), host, 6379)
@@ -18,7 +18,7 @@ class AndromedaRedis {
         resource = pool.resource
 
 
-        packetPool = JedisPool(GenericObjectPoolConfig(), host, 6379)
+        secondaryPacketPool = JedisPool(GenericObjectPoolConfig(), host, 6379)
         RedisPacketDistributor.loadPubSub()
     }
 
