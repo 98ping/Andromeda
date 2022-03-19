@@ -56,20 +56,22 @@ data class Game(
 
     //solo-dependent functions. Teams will come later
 
-    fun teleportToRandomArenaSpawn(player: Player) {
+    fun teleportToRandomArenaSpawn(uuids: MutableList<UUID>) {
         val locationMap = hashMapOf<UUID, Location>() //keeping track of uuids & locations
-        val firstLocation = activeArena!!.spawnLocations[Random().nextInt(activeArena!!.spawnLocations.size)]
 
-        for (entry in locationMap.entries) {
-            if (entry.value == firstLocation) {
-                teleportToRandomArenaSpawn(player)
-                println("Spawn location was already found. Finding one")
+        for (uuid in uuids) {
+            val player = Bukkit.getPlayer(uuid)
+
+            val firstLocation = activeArena!!.spawnLocations.find { !locationMap.containsValue(it) }
+
+            if (firstLocation == null) {
+                println("ran out of arena spawns")
+                return
             }
-        }
 
-        locationMap[player.uniqueId] = firstLocation
-        player.teleport(firstLocation)
-        player.sendMessage("${ChatColor.YELLOW}Teleporting you to your spawn location...")
+            locationMap[uuid] = firstLocation
+            player.teleport(firstLocation)
+        }
 
     }
 
@@ -97,9 +99,8 @@ data class Game(
 
         if (teamSizeType == TeamSizeType.SOLO) {
             setupSoloTeams()
+            teleportToRandomArenaSpawn(playerList)
             for (player in playerList) {
-                teleportToRandomArenaSpawn(Bukkit.getPlayer(player))
-
                 if (restrictMovement) {
                     AndromedaPlugin.instance.gameService.restrictedMovementList.add(player)
                 }
@@ -120,7 +121,6 @@ data class Game(
 
             Andromeda.INSTANCE.gameTeamService.sendTeamsToRedis()
         }
-
 
 
     }

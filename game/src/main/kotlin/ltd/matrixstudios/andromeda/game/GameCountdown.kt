@@ -10,7 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable
 
 class GameCountdown {
 
-    var totalPreGameSeconds = 60
+    var totalPreGameSeconds = 30
     var totalInGameSeconds = 0
 
     fun startGameCountdown(game: Game) {
@@ -20,13 +20,13 @@ class GameCountdown {
             override fun run() {
 
                 when (totalPreGameSeconds) {
-                    60 -> {
+                    30 -> {
                         game.activeArena = Andromeda.INSTANCE.gameArenaService.findFirstAvailableArena(game.gamemode)
 
                         Bukkit.broadcastMessage(
                             ChatColor.translateAlternateColorCodes(
                                 '&',
-                                "&eGame is starting in &c1 minute"
+                                "&eGame is starting in &c30 seconds"
                             )
                         )
 
@@ -38,24 +38,6 @@ class GameCountdown {
 
                     }
 
-                    45 -> {
-                        Bukkit.broadcastMessage(
-                            ChatColor.translateAlternateColorCodes(
-                                '&',
-                                "&eGame is starting in &c45 seconds"
-                            )
-                        )
-                    }
-
-                    30 -> {
-                        Bukkit.broadcastMessage(
-                            ChatColor.translateAlternateColorCodes(
-                                '&',
-                                "&eGame is starting in &c30 seconds"
-                            )
-                        )
-                    }
-
                     15 -> {
                         Bukkit.broadcastMessage(
                             ChatColor.translateAlternateColorCodes(
@@ -64,7 +46,6 @@ class GameCountdown {
                             )
                         )
                     }
-
                     0 -> {
                         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&eGame is starting &cNow"))
                         AndromedaPlugin.instance.gameService.startGame(AndromedaPlugin.instance.gameInstance)
