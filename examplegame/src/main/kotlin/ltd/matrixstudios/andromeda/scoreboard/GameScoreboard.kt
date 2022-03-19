@@ -33,7 +33,7 @@ class GameScoreboard() : AssembleAdapter {
 
         if (gameInstance.gameState == GameState.STARTING) {
             lines.add("&a&l&oStarting In...")
-            lines.add("&f" + formatIntoMMSS(AndromedaPlugin.instance.gameCountdown.totalGameSeconds))
+            lines.add("&f" + formatIntoMMSS(AndromedaPlugin.instance.gameCountdown.totalPreGameSeconds))
         }
 
         if (gameInstance.gameState == GameState.STARTED) {
@@ -44,6 +44,7 @@ class GameScoreboard() : AssembleAdapter {
             lines.add(" ")
             lines.add("&5&lGame")
             lines.add("&eMap: &f" + gameInstance.activeArena!!.id)
+            lines.add("&eTime: &f" + formatIntoMMSS(AndromedaPlugin.instance.gameCountdown.totalInGameSeconds))
             lines.add("&eTributes: &f" + Andromeda.INSTANCE.gameTeamService.teams.values.filter { it.membersAlive.size >= 1 }.count() + " Alive")
             lines.add(" ")
             lines.add("&a&lLocation")

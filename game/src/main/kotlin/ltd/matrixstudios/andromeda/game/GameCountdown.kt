@@ -10,7 +10,8 @@ import org.bukkit.scheduler.BukkitRunnable
 
 class GameCountdown {
 
-    var totalGameSeconds = 60
+    var totalPreGameSeconds = 60
+    var totalInGameSeconds = 0
 
     fun startGameCountdown(game: Game) {
         game.gameState = GameState.STARTING
@@ -18,41 +19,81 @@ class GameCountdown {
         object : BukkitRunnable() {
             override fun run() {
 
-                when (totalGameSeconds) {
+                when (totalPreGameSeconds) {
                     60 -> {
                         game.activeArena = Andromeda.INSTANCE.gameArenaService.findFirstAvailableArena(game.gamemode)
 
-                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&eGame is starting in &c1 minute"))
+                        Bukkit.broadcastMessage(
+                            ChatColor.translateAlternateColorCodes(
+                                '&',
+                                "&eGame is starting in &c1 minute"
+                            )
+                        )
 
                         RedisPacketDistributor.sendGeneralMessage("LOAD_CHESTS")
 
                         RedisPacketDistributor.sendGeneralMessage("SETUP_STATS")
 
+                        game.transportParticipantsToArena(true)
+
                     }
 
                     45 -> {
-                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&eGame is starting in &c45 seconds"))
+                        Bukkit.broadcastMessage(
+                            ChatColor.translateAlternateColorCodes(
+                                '&',
+                                "&eGame is starting in &c45 seconds"
+                            )
+                        )
                     }
 
-                   30 -> {
-                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&eGame is starting in &c30 seconds"))
+                    30 -> {
+                        Bukkit.broadcastMessage(
+                            ChatColor.translateAlternateColorCodes(
+                                '&',
+                                "&eGame is starting in &c30 seconds"
+                            )
+                        )
                     }
 
                     15 -> {
-                        Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&eGame is starting in &c15 seconds"))
+                        Bukkit.broadcastMessage(
+                            ChatColor.translateAlternateColorCodes(
+                                '&',
+                                "&eGame is starting in &c15 seconds"
+                            )
+                        )
                     }
 
                     0 -> {
                         Bukkit.broadcastMessage(ChatColor.translateAlternateColorCodes('&', "&eGame is starting &cNow"))
                         AndromedaPlugin.instance.gameService.startGame(AndromedaPlugin.instance.gameInstance)
+                        startGameTime()
                     }
 
 
                 }
 
-                totalGameSeconds--
+                totalPreGameSeconds--
             }
 
+        }.runTaskTimer(AndromedaPlugin.instance, 0L, 20L)
+    }
+
+    fun startGameTime() {
+        object : BukkitRunnable() {
+            override fun run() {
+                when (totalInGameSeconds) {
+                    100 -> {
+                        Bukkit.broadcastMessage("${ChatColor.YELLOW}Chest refill will occur in ${ChatColor.RED}20 seconds")
+                    }
+
+                    120 -> {
+                        RedisPacketDistributor.sendGeneralMessage("LOAD_CHESTS")
+                    }
+                }
+                totalInGameSeconds++
+            }
         }.runTaskTimer(AndromedaPlugin.instance, 0L, 20L)
     }
 }

@@ -1,9 +1,9 @@
 package ltd.matrixstudios.andromeda.statistics
 
 data class GlobalSaveableStatistic(
-    val kills: Int,
-    val deaths: Int,
-    val gamesPlayed: Int,
-    val wins: Int,
+    var kills: Int,
+    var deaths: Int,
+    var gamesPlayed: Int,
+    var wins: Int,
 ) {
 }

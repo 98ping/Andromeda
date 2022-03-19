@@ -92,7 +92,6 @@ data class Game(
 
     }
 
-    //gonna restrict movement @ some point idk its hard mane
     fun transportParticipantsToArena(restrictMovement: Boolean) {
         val playerList = allParticipants
 
@@ -102,7 +101,7 @@ data class Game(
                 teleportToRandomArenaSpawn(Bukkit.getPlayer(player))
 
                 if (restrictMovement) {
-                    Bukkit.getPlayer(player).setMetadata("restrictedMovement", FixedMetadataValue(AndromedaPlugin.instance, true))
+                    AndromedaPlugin.instance.gameService.restrictedMovementList.add(player)
                 }
             }
         } else {

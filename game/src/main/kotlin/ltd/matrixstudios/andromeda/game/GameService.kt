@@ -6,8 +6,11 @@ import ltd.matrixstudios.andromeda.backend.serialization.SerializationManager
 import ltd.matrixstudios.andromeda.game.state.GameState
 import ltd.matrixstudios.andromeda.game.team.TeamSizeType
 import org.bukkit.Bukkit
+import java.util.*
 
 class GameService {
+
+    var restrictedMovementList = arrayListOf<UUID>()
 
     fun getGames() : MutableList<Game> {
         val redisGames = Andromeda.INSTANCE.andromedaRedis.resource.hgetAll("Andromeda::games::")
@@ -36,7 +39,7 @@ class GameService {
 
         AndromedaPlugin.instance.gameInstance = game
 
-        game.transportParticipantsToArena(false)
+        AndromedaPlugin.instance.gameService.restrictedMovementList.clear()
 
     }
 }
