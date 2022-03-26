@@ -36,7 +36,7 @@ class AndromedaPlugin : JavaPlugin() {
         saveDefaultConfig()
         instance = this
 
-            Andromeda.INSTANCE.load("mongodb://localhost:27017", "Andromeda", "127.0.0.1", this)
+        Andromeda.INSTANCE.load(config.getString("uri"), "Andromeda", "172.18.0.1", this)
 
         gameService = GameService()
 

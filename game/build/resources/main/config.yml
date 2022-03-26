@@ -1,6 +1,7 @@
 # putting this here because the first thing that the server will do is launch the game and have it stay idle until it needs to be changed.
 # I would try another method but this is easiest
 lobby: true
+uri: "mongodb://localhost:27017"
 game:
   internalId: "game-SW-01" #used to ensure that the server actually removes the game on disable
   gamemode: "SKYWARS"

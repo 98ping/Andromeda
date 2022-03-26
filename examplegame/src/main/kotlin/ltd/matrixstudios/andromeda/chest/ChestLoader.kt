@@ -22,7 +22,14 @@ object ChestLoader {
     lateinit var chestinventory: Array<ItemStack?>
 
     fun load() {
-        chestinventory = SerializationManager.GSON.fromJson(Andromeda.INSTANCE.andromedaRedis.resource.hget("Andromeda::games::chests::", "main"), TYPE)
+        val chestInv = SerializationManager.GSON.fromJson<Array<ItemStack?>?>(Andromeda.INSTANCE.andromedaRedis.resource.hget("Andromeda::games::chests::", "main"), TYPE)
+        if (chestInv == null) {
+            chestinventory = arrayOf()
+        } else {
+            chestinventory = chestInv
+        }
+
+        println("Loaded chest inventory with " + chestinventory.size + " items")
     }
 
 

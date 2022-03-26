@@ -1,6 +1,7 @@
 package ltd.matrixstudios.andromeda.loadout
 
 import ltd.matrixstudios.andromeda.menu.ServerGamemodeMenu
+import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
@@ -46,6 +47,8 @@ object LobbyLoadoutListener : Listener {
         player.inventory.setItem(8, stats)
 
         player.updateInventory()
+
+        player.teleport(Bukkit.getWorld("world").spawnLocation)
 
     }
 
